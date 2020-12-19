@@ -33,7 +33,9 @@ void analogWrite(/*uint8_t pin, */uint8_t val) {
     else {
         TCCR0A |= _BV(COM0B1);
         PORTB &= ~(_BV(PB1));
-        OCR0B = val; } }
+        OCR0B = val; 
+    } 
+}
 
 uint8_t var = 2;    // ввод переменной для выбора скорости
 void switchChoice(uint8_t var) {
@@ -52,8 +54,10 @@ void switchChoice(uint8_t var) {
             break;
         case 5:
             analogWrite(47); // 5V
-            break; } }
-/*----------------------------------------------------------------------------*/
+            break; 
+    } 
+}
+
 int main(void) {
     // PWM SETUP
     TCCR0B |= (1 << CS01) | (1 << WGM02);
@@ -98,22 +102,3 @@ int main(void) {
     }   // Закрывание Loop
     return 0;
 }
-
-/* ----------------------------------------------------------------------------
-    //__no_operation();
-//    // ADC SETUP
-//    ADMUX |= (1 << MUX0);
-//    ADMUX |= (1 << ADLAR);
-//    // Set the ADC input to PB2/ADC1
-//
-//    ADCSRA |= (1 << ADPS1) | (1 << ADPS0) | (1 << ADEN);	
-// Set the prescaler to div 128 and enable ADC
-  for(;;) {
-		_delay_ms(50);	
-        ADCSRA |= (1 << ADSC);             // start the ADC read
-        while (ADCSRA & (1 << ADSC)) ;     // wait for the ADC read to finish        
-        OCR0B = (ADCH)*38 / 235 + 9;
-        output = (input - input_start)*output_range / input_range + output_start;*
-        usable ADC range is 0 to about 235
-	}
-*/
