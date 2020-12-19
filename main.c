@@ -1,13 +1,10 @@
-/*designed for an attiny13, uses 238 bytes of program space, fuses set using -U lfuse:w:0x7a:m -U hfuse:w:0xff:m
+/*Designed for an attiny13A, uses 300 bytes of program space, fuses set using -U lfuse:w:0x7a:m -U hfuse:w:0xff:m
  powered from 5V, source it from your computer's USB headers or something
  PB1 goes through a 1K resistor to the fan's PWM input
- PB2 is connected to the wiper of a 10K pot (connected to 5V)
  OCR0A = 47, 9600000 / (8*(47+1)) = 25000
  если OCR0A = 47, то OCR0B = 0 - 46, -1 и 47 5 вольт
- 
-
  Распиновка
-                    __ __
+                   __ __
     (D5/A0) PB5  1|o    |8  VCC
   + (D3/A3) PB3  2|     |7  PB2 (D2/A1)  -
     (D4/A2) PB4  3|     |6  PB1 (D1/PWM) mosfet npn
@@ -22,8 +19,7 @@
 #define TRUE 1
 #define FALSE 0
 
-//uint8_t val;        // уровень PWM
-void analogWrite(/*uint8_t pin, */uint8_t val) {
+void analogWrite(uint8_t val) {
     if (val == 0 || val >= 47) {
         TCCR0A &= ~_BV(COM0B1);     // Turn off PWM PB1
         if (val >= 47) {
@@ -67,7 +63,7 @@ int main(void) {
     TCCR0A &= ~_BV(COM0A1); // disable port PB0
     DDRB |= _BV(PB1);                       // enable pwm output pin
     OCR0A = 47;                             // TOP value used to set 25khz pwm freq
-    //OCR0B = val;                          // pwm duty cycle, 0 to 48 due to reduced pwm resolution
+
     switchChoice(var);                        // Выбор переключателя по умолчанию
     // подтягиваем ножки кнопок, в регистре DDR0B должны быть 0
     DDRB &= ~(_BV(PB2) | _BV(PB3)); // Set pins as input PB2-3
@@ -75,7 +71,7 @@ int main(void) {
 
     uint8_t flagBtnUp = FALSE;                  // флаг отпущенной кнопки +
     uint8_t flagBtnDown = FALSE;                // флаг отпущеной кнопки -
-    while (1) { // Loop
+    while (1) {
         _delay_ms(50);
         uint8_t btnUpState = ~PINB & _BV(PB3);         // считываем состояние кнопки +
         uint8_t btnDownState = ~PINB & _BV(PB2);       // считываем состояние кнопки -
@@ -99,6 +95,6 @@ int main(void) {
         if (!btnDownState && flagBtnDown) {
             flagBtnDown = FALSE; // обработчик отпускания кнопки -
         }
-    }   // Закрывание Loop
+    }
     return 0;
 }
