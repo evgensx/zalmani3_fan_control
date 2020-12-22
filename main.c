@@ -30,7 +30,7 @@ void analogWrite(uint8_t val) {
         TCCR0A |= _BV(COM0B1);
         PORTB &= ~(_BV(PORTB1));
         OCR0B = val;
-	}
+    }
 }
 
 uint8_t var = 2;    // ввод переменной для выбора скорости
@@ -51,7 +51,7 @@ void switchChoice(uint8_t var) {
         case 5:
             analogWrite(47); // 5V
             break;
-	}
+    }
 }
 
 int main(void) {
