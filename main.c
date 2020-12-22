@@ -1,11 +1,8 @@
-/*
- * main.c
+/* main.c
  * Designed for an attiny13, uses 300 bytes of program space, fuses set using -U lfuse:w:0x7a:m -U hfuse:w:0xff:m
  * powered from 5V, source it from your computer's USB headers or something
  * PB1 goes through a 1K resistor to the fan's PWM input
- * OCR0A = 47, 9600000 / (8*(47+1)) = 25000
- * если OCR0A = 47, то OCR0B = 0 - 46, -1 и 47 5 вольт
- * 
+ * OCR0A = 47, 9600000 / (8*(47+1)) = 25000, если OCR0A = 47, то OCR0B = 0 - 46, -1 и 47 5 вольт. 
  * Распиновка
                    __ __
     (D5/A0) PB5  1|o    |8  VCC
