@@ -6,7 +6,7 @@
  * Распиновка
                    __ __
     (D5/A0) PB5  1|o    |8  VCC
-  + (D3/A3) PB3  2|     |7  PB2 (D2/A1)  -
+  + (D3/A3) PB3  2|     |7  PB2 (D2/A1)  - //switch buttons
     (D4/A2) PB4  3|     |6  PB1 (D1/PWM) mosfet npn
             GND  4|_____|5  PB0 (D0/PWM)
 */
